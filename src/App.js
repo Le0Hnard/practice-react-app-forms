@@ -1,39 +1,31 @@
-import React from 'react';
-import ReactDOM from "react-dom";
-import { Summary } from './components/Summary';
+import React, { Component } from 'react';
+import Editor from './components/Editor';
+import Display from './components/Display';
 
-let names = ["Bob", "Alice", "Dora"];
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      formData: {}
+    };
+  }
 
-const reverseNames = () => {
-  names.reverse();
-  ReactDOM.render(<App />, document.getElementById('root'));
-};
+  submitData = (newData) => {
+    this.setState({ formData: newData });
+  }
 
-const promoteName = (name) => {
-  names = [name, ...names.filter(val => val !== name)];
-  ReactDOM.render(<App />, document.getElementById('root'));
-};
-
-function App() {
-  return (
-    <table className="table table-sm table-striped">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Name</th>
-          <th>Letters</th>
-        </tr>
-      </thead>
-      <tbody>
-        {
-          names.map((name, index) => 
-            <tr key={ name }>
-              <Summary index={ index } name={ name } reverseCallback={ reverseNames } promoteCallback={ promoteName } />
-            </tr>
-        )}
-      </tbody>
-    </table>
-  );
+  render() {
+    return (
+      <div className="container-fluid">
+        <div className="row p-2">
+          <div className="col-6">
+            <Editor submit={ this.submitData } />
+          </div>
+          <div className="col-6">
+            <Display data={ this.state.formData } />
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
-
-export default App;
