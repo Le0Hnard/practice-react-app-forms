@@ -25,7 +25,16 @@ export default class Editor extends Component {
   }
 
   updateFormValueCheck = (event) => {
-    this.setState({ [event.target.name]: event.target.checked }, () => this.props.submit(this.state));
+    event.persist();
+    this.setState(state => {
+      if(event.target.checked) {
+        state.toppings.push(event.target.name);
+      } else {
+        let index = state.toppings.indexOf(event.target.name);
+        state.toppings.splice(index, 1);
+      }
+    }, () => this.props.submit(this.state));
+    // this.setState({ [event.target.name]: event.target.checked }, () => this.props.submit(this.state));
   }
 
   render() {
@@ -57,15 +66,15 @@ export default class Editor extends Component {
           }
         </div>
         <div className="form-group">
-          <div className="form-check">
+          {/* <div className="form-check">
             <input className="form-check-input" type="checkbox" checked={ this.state.twoScoops } onChange={ this.updateFormValueCheck } 
             name="twoScoops"/>
             <label className="form-check-label">Two Scoops</label>
-          </div>
+          </div> */}
         </div>
         <div className="form-group">
             <label>Ice Cream Toppings</label>
-            <select className="form-control" multiple={ true } name="toppings" value={ this.state.toppings } onChange={ this.updateFormValueOptions }>
+            {/* <select className="form-control" multiple={ true } name="toppings" value={ this.state.toppings } onChange={ this.updateFormValueOptions }>
               {
                 this.toppings.map(top => 
                   <option value={ top } key={ top }>
@@ -73,7 +82,16 @@ export default class Editor extends Component {
                   </option>
                 )
               }
-            </select>
+            </select> */}
+            {
+              this.toppings.map(top => 
+                <div className="form-check" key={ top }>
+                  <input className="form-check-input" type="checkbox" name={ top } value={ this.state[top] } 
+                  checked={ this.state.toppings.indexOf(top) > -1 } onChange={ this.updateFormValueCheck } />
+                  <label className="form-check-label">{ top }</label>
+                </div>
+              )
+            }
         </div>
       </div>
     );
