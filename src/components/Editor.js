@@ -32,7 +32,7 @@ export default class Editor extends Component {
         </div>
         <div className="form-group">
           <label>Ice Cream Flavors</label>
-          <select className="form-control" name="flavor" value={ this.state.flavor } onChange={ this.updateFormValue }>
+          {/* <select className="form-control" name="flavor" value={ this.state.flavor } onChange={ this.updateFormValue }>
             {
               this.flavors.map(flavor =>
                 <option value={ flavor } key={ flavor }>
@@ -40,7 +40,16 @@ export default class Editor extends Component {
                 </option>
               )
             }
-          </select>
+          </select> */}
+          {
+            this.flavors.map(flavor => 
+              <div className="form-check" key={ flavor }>
+                <input className="form-check-input" type="radio" name="flavor" value={ flavor }
+                checked={ this.state.flavor === flavor } onChange={ this.updateFormValue } />
+                <label className="form-check-label">{ flavor }</label>
+              </div>
+            )
+          }
         </div>
         <div className="form-group">
             <label>Ice Cream Toppings</label>
