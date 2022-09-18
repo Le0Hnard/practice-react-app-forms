@@ -6,7 +6,7 @@ export default class FormValidator extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      erroes: {},
+      errors: {},
       dirty: {},
       formSubmitted: false,
       getMessagesForField: this.getMessagesForField
@@ -41,7 +41,7 @@ export default class FormValidator extends Component {
   }
 
   getMessagesForField = (field) => {
-    return  (this.state.formSubmitted || this.state.dirty[field]) ? this.state.errors[field] || [] : [];
+    return (this.state.formSubmitted || this.state.dirty[field]) ? this.state.errors[field] || [] : [];
   }
 
   render() {
