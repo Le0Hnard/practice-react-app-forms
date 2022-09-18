@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import FormValidator from './FormValidator';
 import ValidationMessage from './ValidationMessage';
+import { ValidateForm } from './wholeFormValidation';
 
 export default class Editor extends Component {
   constructor(props) {
@@ -33,7 +34,8 @@ export default class Editor extends Component {
   render() {
     return (
       <div className="h5 bg-info text-white p-2">
-        <FormValidator data={ this.state } rules={ this.rules } submit={ this.props.submit }>
+        <FormValidator data={ this.state } rules={ this.rules } submit={ this.props.submit } validateForm={ ValidateForm }>
+          <ValidationMessage field="form" />
           <div className="form-group">
             <label>Name</label>
             <input className="form-control" name="name" value={ this.state.name } onChange={ this.updateFormValue } />
