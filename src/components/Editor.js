@@ -8,13 +8,15 @@ export default class Editor extends Component {
     this.state = {
       name: "",
       email: "",
+      emailConfirm: "",
       order: "",
       terms: false
     };
 
     this.rules = {
       name: { required: true, minLength: 3, alpha: true },
-      email: { required: true, email: true },
+      email: { required: true, email: true, equals: "emailConfirm" },
+      emailConfirm: { required: true, email: true, equals: "email" },
       order: { required: true },
       terms: { true: true }
     }
@@ -41,6 +43,11 @@ export default class Editor extends Component {
             <label>Email</label>
             <input className="form-control" name="email" value={ this.state.email } onChange={ this.updateFormValue } />
             <ValidationMessage field="email" />
+          </div>
+          <div className="form-group">
+            <label>Confirm Email</label>
+            <input className="form-control" name="emailConfirm" value={ this.state.emailConfirm } onChange={ this.updateFormValue } />
+            <ValidationMessage field="emailConfirm" />
           </div>
           <div className="form-group">
             <label>Order</label>
